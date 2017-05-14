@@ -2,12 +2,21 @@
   "name": "react-router-access",
   "version": "1.0.0",
   "scripts": {
+    "build": "npm run build-cjs && npm run build-es",
+    "build-cjs": "rimraf lib && cross-env BABEL_ENV=cjs babel ./modules -d lib --ignore **/test.js",
+    "build-es": "rimraf es && cross-env BABEL_ENV=es babel ./modules -d es --ignore **/test.js",
+    "build-umd": "cross-env NODE_ENV=development webpack modules/index.js umd/ReactRouterAccess.js",
+    "build-min": "cross-env NODE_ENV=production webpack -p modules/index.js umd/ReactRouterAccess.min.js",
     "test": "ava"
   },
   "devDependencies": {
     "ava": "^0.14.0",
+    "babel-cli": "^6.11.4",
     "babel-core": "^6.21.0",
+    "babel-eslint": "^7.2.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-espower": "^2.3.2",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-class-properties": "^6.19.0",
@@ -21,15 +30,20 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.0.1",
     "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-1": "^6.13.0",
+    "babel-register": "^6.11.6",
     "babel-runtime": "^6.20.0",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-xo-react": "^0.6.0",
     "eslint-plugin-react": "^4.3.0",
+    "gzip-size": "^3.0.0",
     "jsdom": "^8.3.1",
+    "pretty-bytes": "^4.0.2",
     "react-addons-test-utils": "^15.0.1",
     "sinon": "^2.1.0",
-    "webpack": "^1.15.0"
+    "webpack": "^1.15.0",
+    "cross-env": "^3.2.4"
   },
   "dependencies": {
     "react": "^15.0.1",

@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withRouter, Redirect} from 'react-router';
 import _ from 'lodash';
-import {VirtualRoute} from '../';
+//import {VirtualRoute} from '../';
+import VirtualRoute from '../VirtualRoute';
 
 export const defaultScreenNegativeRenderResult = (<Redirect to="/" />);
 export const defaultNonScreenNegativeRenderResult = null;

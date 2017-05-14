@@ -1,5 +1,7 @@
 {
   "presets": [
+    "./tools/es2015Preset",
+    "stage-1",
     "react",
     "es2015",
     "stage-2"
@@ -9,8 +11,14 @@
     "transform-decorators-legacy",
     "transform-export-extensions",
     "transform-runtime",
+    "dev-expression",
     ["babel-plugin-espower", {
       "embedAst": true
     }]
-  ]
+  ],
+  "env": {
+    "cjs": {
+      "plugins": ["add-module-exports"]
+    }
+  }
 }
