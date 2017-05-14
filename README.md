@@ -1,0 +1,1 @@
+A route access and navigation management solution for react-router (v4+).

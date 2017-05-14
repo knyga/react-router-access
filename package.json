@@ -1,6 +1,19 @@
 {
   "name": "react-router-access",
   "version": "1.0.0",
+  "description": "A route access and navigation management solution for react-router (v4+)",
+  "files": [
+    "*.md",
+    "docs",
+    "es",
+    "lib",
+    "umd"
+  ],
+  "main": "index.js",
+  "module": "es/index.js",
+  "repository": "knyga/react-router-access",
+  "homepage": "https://github.com/knyga/react-router-access#readme",
+  "bugs": "https://github.com/knyga/react-router-access/issues",
   "scripts": {
     "build": "npm run build-cjs && npm run build-es",
     "build-cjs": "rimraf lib && cross-env BABEL_ENV=cjs babel ./modules -d lib --ignore **/test.js",
@@ -9,6 +22,10 @@
     "build-min": "cross-env NODE_ENV=production webpack -p modules/index.js umd/ReactRouterAccess.min.js",
     "test": "ava"
   },
+  "authors": [
+    "Oleksandr Knyga"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "ava": "^0.14.0",
     "babel-cli": "^6.11.4",
@@ -58,7 +75,5 @@
       "babel-register"
     ],
     "babel": "inherit"
-  },
-  "main": "index.js",
-  "module": "es/index.js"
+  }
 }
