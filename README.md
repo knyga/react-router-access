@@ -21,3 +21,5 @@ TODO: add Discord badge
 ### Browser Support
 
 We support all browsers and environments where React runs.
+
+TODO: add keywords and tags
