@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "react",
+    "es2015",
+    "stage-2"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    "transform-decorators-legacy",
+    "transform-export-extensions",
+    "transform-runtime",
+    "react-hot-loader/babel",
+    ["babel-plugin-espower", {
+      "embedAst": true
+    }]
+  ]
+}
