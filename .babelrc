@@ -9,7 +9,6 @@
     "transform-decorators-legacy",
     "transform-export-extensions",
     "transform-runtime",
-    "react-hot-loader/babel",
     ["babel-plugin-espower", {
       "embedAst": true
     }]
