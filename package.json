@@ -1,6 +1,6 @@
 {
   "name": "react-router-access",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A route access and navigation management solution for react-router (v4+)",
   "files": [
     "*.md",
@@ -9,7 +9,7 @@
     "lib",
     "umd"
   ],
-  "main": "index.js",
+  "main": "es/index.js",
   "module": "es/index.js",
   "repository": "knyga/react-router-access",
   "homepage": "https://github.com/knyga/react-router-access#readme",
