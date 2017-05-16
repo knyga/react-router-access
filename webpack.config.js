@@ -33,7 +33,7 @@ module.exports = {
         loaders: ['babel'],
         exclude: [
           '/node_modules/',
-          '**/index.js',
+          '**/test.js',
         ],
       },
     ]

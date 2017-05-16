@@ -12,6 +12,7 @@ export default class VirtualRoute {
                 isAbstract,
                 isScreen,
                 hasAccess,
+                data,
   } = {}) {
     this._parent = parent || null;
     this._component = component || null;
@@ -26,10 +27,15 @@ export default class VirtualRoute {
     this._path = path;
     this._children = [];
     this._hasAccess = hasAccess || (() => true);
+    this._data = data || {};
 
     if (children) {
       children.forEach(child => this.addChild(child));
     }
+  }
+
+  get data() {
+    return this._data;
   }
 
   get parent() {
