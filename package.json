@@ -20,7 +20,8 @@
     "build-es": "rimraf es && cross-env BABEL_ENV=es babel ./modules -d es --ignore **/test.js",
     "build-umd": "cross-env NODE_ENV=development webpack modules/index.js umd/ReactRouterAccess.js",
     "build-min": "cross-env NODE_ENV=production webpack -p modules/index.js umd/ReactRouterAccess.min.js",
-    "test": "ava"
+    "test": "ava",
+    "test-watch": "npm test -- --watch"
   },
   "authors": [
     "Oleksandr Knyga"
