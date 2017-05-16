@@ -1,6 +1,6 @@
 {
   "name": "react-router-access",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A route access and navigation management solution for react-router (v4+)",
   "files": [
     "*.md",
