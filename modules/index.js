@@ -7,3 +7,4 @@ export checkReactChildrenRecursive from './checkReactChildrenRecursive';
 export NavigationAction from './NavigationAction';
 export VirtualRoute from './VirtualRoute';
 export virtualRouteGenerator from './virtualRouteGenerator';
+export NavigationActionsCollection from './NavigationActionsCollection';
