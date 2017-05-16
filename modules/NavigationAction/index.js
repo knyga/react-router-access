@@ -1,17 +1,4 @@
-import {compile as compilePath} from 'path-to-regexp';
-
-// renderSDKLinks() {
-//   return _.map(this.sdks, (sdk, id) => {
-//     const navigationAction = new EditSDKNavigationAction(sdk);
-//     return navigationAction.hasAccess() ?
-//       <Link key={id} to={navigationAction.generatePath()} >{sdk.name}</Link>:
-//       null;
-//   });
-// }
-
-// TODO implement
-// (sdk, id) => editNavigationActionRenderer(sdk, <Link key={id} to={navigationAction.generatePath()} >{sdk.name}</Link>)
-// (sdk, id) => editNavigationActionRenderer(sdk, <Link key={id} to={navigationAction.generatePath()} >{sdk.name}</Link>, null)
+import { compile as compilePath } from 'path-to-regexp';
 
 export default class NavigationAction {
   constructor(data) {

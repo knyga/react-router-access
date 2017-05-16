@@ -1,17 +1,17 @@
 /* eslint-disable react/no-multi-comp */
-import React, {Component} from 'react';
-import test from 'ava';
-import accessConnect, {defaultScreenNegativeRenderResult, defaultNonScreenNegativeRenderResult} from './';
-import {virtualRootBuilder} from '../../__mocks__';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {shallow} from 'enzyme';
+import { shallow } from 'enzyme';
+import test from 'ava';
+import accessConnect, { defaultScreenNegativeRenderResult, defaultNonScreenNegativeRenderResult } from '../';
+import { virtualRootBuilder } from '../../../__mocks__';
 
-const withRouterExtended = (pathname) => (Component) => {
+const withRouterExtended = pathname => (TargetComponent) => {
   const location = {
     pathname,
   };
 
-  class ExtendedComponent extends Component {
+  class ExtendedComponent extends TargetComponent {
     static propTypes = {
       location: PropTypes.object,
     };
@@ -23,7 +23,7 @@ const withRouterExtended = (pathname) => (Component) => {
   return ExtendedComponent;
 };
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   const virtualRouteRoot = virtualRootBuilder();
 
   t.context = {
@@ -32,7 +32,7 @@ test.beforeEach(t => {
 });
 
 
-test('renders with access', t => {
+test('renders with access', (t) => {
   const content = (<div>Hello screen</div>);
 
   @accessConnect
@@ -47,7 +47,7 @@ test('renders with access', t => {
   t.is(wrapper.equals(content), true);
 });
 
-test('does not render without an access and has default negative render result for screen', t => {
+test('does not render without an access and has AA negative render result for screen', (t) => {
   const content = (<div>Hello screen</div>);
 
   @accessConnect
@@ -62,7 +62,7 @@ test('does not render without an access and has default negative render result f
   t.is(wrapper.equals(defaultScreenNegativeRenderResult), true);
 });
 
-test('can redefine negative result for screen', t => {
+test('can redefine negative result for screen', (t) => {
   const content = (<div>Hello screen</div>);
   const negativeResult = (<div>So negaitve</div>);
 
@@ -78,7 +78,7 @@ test('can redefine negative result for screen', t => {
   t.is(wrapper.equals(negativeResult), true);
 });
 
-test('does not render without an access and has default negative render result for non-screen', t => {
+test('does not render without an access and has default negative render result for non-screen', (t) => {
   const content = (<div>Hello non-screen</div>);
 
   @accessConnect
@@ -93,7 +93,7 @@ test('does not render without an access and has default negative render result f
   t.is(wrapper.equals(defaultNonScreenNegativeRenderResult), true);
 });
 
-test('can redefine negative result for non-screen', t => {
+test('can redefine negative result for non-screen', (t) => {
   const content = (<div>Hello non-screen</div>);
   const negativeResult = (<div>So negaitve</div>);
 

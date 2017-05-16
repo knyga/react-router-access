@@ -1,4 +1,4 @@
-import {matchPath} from 'react-router';
+import { matchPath } from 'react-router';
 
 export default class VirtualRoute {
   constructor({
@@ -20,7 +20,8 @@ export default class VirtualRoute {
     // TODO redundant, if we have a component, rafactor
     this._isAbstract = isAbstract || false;
     this._isAbsolutePath = isAbsolutePath || false;
-    // TODO could be removed and replaced with first nodes from the root with component (non abstract)
+    // TODO could be removed and replaced with first nodes
+      // from the root with component (non abstract)
     this._isScreen = isScreen || false;
     this._path = path;
     this._children = [];
@@ -81,6 +82,7 @@ export default class VirtualRoute {
   }
 
   addChild(child) {
+    // eslint-disable-next-line no-param-reassign
     child.parent = this;
     this._children.push(child);
   }
@@ -116,9 +118,9 @@ export default class VirtualRoute {
       (pv, cv) => pv.concat(
         cv.isAbstract ?
           cv.generateChildrenRoutesData() :
-          [cv.generateRouteData()]
+          [cv.generateRouteData()],
       ),
-      []
+      [],
     );
   }
 
@@ -147,7 +149,7 @@ export default class VirtualRoute {
 // TODO add static methods
 VirtualRoute.store = null;
 VirtualRoute.root = null;
-VirtualRoute.findRoute = function(path) {
+VirtualRoute.findRoute = function findRoute(path) {
   if (!VirtualRoute.root) {
     return null;
   }

@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "ecmaFeatures": {
+    "experimentalObjectRestSpread": true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/__test__/**.js"]}],
+    "no-param-reassign": [2, { "props": false }],
+    "class-methods-use-this": 0,
+    "react/forbid-prop-types": 0,
+    "react/jsx-filename-extension": 0
+  }
+}

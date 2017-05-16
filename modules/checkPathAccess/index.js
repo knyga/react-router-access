@@ -1,7 +1,7 @@
-import {matchPath} from 'react-router';
+import { matchPath } from 'react-router';
 
 // It is not clear from the name that we will have 2nd argument here
-export default function(path, rootRoute) {
+export default function (path, rootRoute) {
   const route = rootRoute.findRoute(path);
 
   if (!route) {

@@ -1,8 +1,8 @@
 import test from 'ava';
-import NavigationAction from './';
-import VirtualRoute from '../VirtualRoute';
+import NavigationAction from '../';
+import VirtualRoute from '../../VirtualRoute';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   const data = {
     _id: 5,
     urlname: 'diff',
@@ -24,19 +24,19 @@ test.beforeEach(t => {
   t.context.PageNavigationAction = PageNavigationAction;
 });
 
-test('throws error if no virtual route', t => {
-  const {data} = t.context;
+test('throws error if no virtual route', (t) => {
+  const { data } = t.context;
   t.throws(() => (new NavigationAction(data)).virtualRoute, Error);
 });
 
-test('path data is not the same as data by default', t => {
-  const {data, PageNavigationAction} = t.context;
+test('path data is not the same as data by default', (t) => {
+  const { data, PageNavigationAction } = t.context;
   const navigationAction = new PageNavigationAction(data);
   t.is(navigationAction.generatePathData(), data);
 });
 
-test('path is generated based on the virtual route and path data', t => {
-  const {data, virtualRoute, PageNavigationAction} = t.context;
+test('path is generated based on the virtual route and path data', (t) => {
+  const { data, virtualRoute, PageNavigationAction } = t.context;
 
   class SomeAction extends PageNavigationAction {
     generatePathData() {

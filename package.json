@@ -21,7 +21,9 @@
     "build-umd": "cross-env NODE_ENV=development webpack modules/index.js umd/ReactRouterAccess.js",
     "build-min": "cross-env NODE_ENV=production webpack -p modules/index.js umd/ReactRouterAccess.min.js",
     "test": "ava",
-    "test-watch": "npm test -- --watch"
+    "test-watch": "npm test -- --watch",
+    "eslint": "eslint ./modules --ext .js,.jsx",
+    "eslint-fix": "eslint ./modules --ext .js,.jsx --fix"
   },
   "authors": [
     "Oleksandr Knyga"
@@ -51,26 +53,32 @@
     "babel-preset-stage-1": "^6.13.0",
     "babel-register": "^6.11.6",
     "babel-runtime": "^6.20.0",
+    "cross-env": "^3.2.4",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
     "eslint-config-xo-react": "^0.6.0",
-    "eslint-plugin-react": "^4.3.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.0.1",
     "gzip-size": "^3.0.0",
     "jsdom": "^8.3.1",
     "pretty-bytes": "^4.0.2",
     "react-addons-test-utils": "^15.0.1",
     "sinon": "^2.1.0",
-    "webpack": "^1.15.0",
-    "cross-env": "^3.2.4"
+    "webpack": "^1.15.0"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
+    "path-to-regexp": "^1.7.0",
+    "prop-types": "^15.5.10",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-router": "^4.1.1"
   },
   "ava": {
     "files": [
-      "**/test.js"
+      "**/__test__/**.js"
     ],
     "require": [
       "babel-register"

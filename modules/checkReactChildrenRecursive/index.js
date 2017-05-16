@@ -1,4 +1,4 @@
-import {Children} from 'react';
+import { Children } from 'react';
 
 // TODO find better name
 // TODO tests
@@ -19,6 +19,6 @@ export default function recursiveCheck(element, checkFn) {
 
   return childrenArray.reduce(
     (pv, cv) => pv && recursiveCheck(cv, checkFn),
-    true
+    true,
   );
 }
