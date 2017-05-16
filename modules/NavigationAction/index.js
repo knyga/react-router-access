@@ -21,6 +21,10 @@ export default class NavigationAction {
     this._data = data || {};
   }
 
+  get virtualRouteData() {
+    return this.virtualRoute.data;
+  }
+
   hasAccess() {
     if (this.virtualRoute) {
       return this.virtualRoute.hasAccess();

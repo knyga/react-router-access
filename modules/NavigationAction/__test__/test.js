@@ -52,3 +52,21 @@ test('path is generated based on the virtual route and path data', (t) => {
   const navigationAction = new SomeAction(data);
   t.is(navigationAction.generatePath(), '/page/5-diff');
 });
+
+test('virtualRouteData returns rotes data', (t) => {
+  const data = {
+    icon: 'someIcon',
+  };
+
+  const virtualRoute = new VirtualRoute({
+    data,
+  });
+
+  class ExampleNavigationAction extends NavigationAction {
+    get virtualRoute() {
+      return virtualRoute;
+    }
+  }
+
+  t.deepEqual(new ExampleNavigationAction().virtualRouteData, data);
+});
