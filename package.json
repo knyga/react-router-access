@@ -1,6 +1,6 @@
 {
   "name": "react-router-access",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A route access and navigation management solution for react-router (v4+)",
   "files": [
     "*.md",
@@ -24,7 +24,7 @@
     "test-watch": "npm test -- --watch",
     "eslint": "eslint ./modules --ext .js,.jsx",
     "eslint-fix": "eslint ./modules --ext .js,.jsx --fix",
-    "package-publish": "npm run eslint && npm run test && npm run build && npm run build-min && npm publish"
+    "package-publish": "npm run eslint-fix && npm run test && npm run build && npm run build-min && npm publish"
   },
   "authors": [
     "Oleksandr Knyga"
