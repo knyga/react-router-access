@@ -3,7 +3,7 @@ import NavigationAction from '../';
 import VirtualRoute from '../../VirtualRoute';
 
 test.beforeEach((t) => {
-  const data = {
+  const props = {
     _id: 5,
     urlname: 'diff',
     name: 'test company',
@@ -19,37 +19,37 @@ test.beforeEach((t) => {
     }
   }
 
-  t.context.data = data;
+  t.context.props = props;
   t.context.virtualRoute = virtualRoute;
   t.context.PageNavigationAction = PageNavigationAction;
 });
 
 test('throws error if no virtual route', (t) => {
-  const { data } = t.context;
-  t.throws(() => (new NavigationAction(data)).virtualRoute, Error);
+  const { props } = t.context;
+  t.throws(() => (new NavigationAction(props)).virtualRoute, Error);
 });
 
 test('path data is not the same as data by default', (t) => {
-  const { data, PageNavigationAction } = t.context;
-  const navigationAction = new PageNavigationAction(data);
-  t.is(navigationAction.generatePathData(), data);
+  const { props, PageNavigationAction } = t.context;
+  const navigationAction = new PageNavigationAction(props);
+  t.is(navigationAction.generatePathData(), props);
 });
 
 test('path is generated based on the virtual route and path data', (t) => {
-  const { data, virtualRoute, PageNavigationAction } = t.context;
+  const { props, virtualRoute, PageNavigationAction } = t.context;
 
   class SomeAction extends PageNavigationAction {
     generatePathData() {
       return {
-        ...this.data,
-        id: this.data._id,
+        ...this.props,
+        id: this.props._id,
       };
     }
   }
 
   SomeAction.virtualRoute = virtualRoute;
 
-  const navigationAction = new SomeAction(data);
+  const navigationAction = new SomeAction(props);
   t.is(navigationAction.generatePath(), '/page/5-diff');
 });
 

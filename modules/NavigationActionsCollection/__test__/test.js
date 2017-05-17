@@ -5,7 +5,7 @@ import NavigationAction from '../../NavigationAction';
 test('accessMap maps only navigation actions with hasAccess() equal to true', (t) => {
   class CustomNavigationAction extends NavigationAction {
     hasAccess() {
-      const { author } = this.data;
+      const { author } = this.props;
 
       if (['administrator', 'moderator'].indexOf(author) > -1) {
         return true;
@@ -25,7 +25,7 @@ test('accessMap maps only navigation actions with hasAccess() equal to true', (t
     new CustomNavigationAction({ author: 'user', id: 105 }),
   ]);
 
-  t.deepEqual(collection.accessMap(action => `/user/${action.data.id}`), [
+  t.deepEqual(collection.accessMap(action => `/user/${action.props.id}`), [
     '/user/3',
     '/user/38',
     '/user/45',

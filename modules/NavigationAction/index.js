@@ -1,8 +1,8 @@
 import { compile as compilePath } from 'path-to-regexp';
 
 export default class NavigationAction {
-  constructor(data) {
-    this.data = data;
+  constructor(props) {
+    this.props = props;
   }
 
   get virtualRoute() {
@@ -13,12 +13,16 @@ export default class NavigationAction {
     throw new Error(`You have to implement getter label in the ${this.name}`);
   }
 
-  get data() {
-    return this._data;
+  get props() {
+    return this._props;
   }
 
-  set data(data) {
-    this._data = data || {};
+  set props(props) {
+    this._props = props || {};
+  }
+
+  get data() {
+    return {};
   }
 
   get virtualRouteData() {
@@ -34,7 +38,7 @@ export default class NavigationAction {
   }
 
   generatePathData() {
-    return this.data;
+    return this.props;
   }
 
   generatePath() {
