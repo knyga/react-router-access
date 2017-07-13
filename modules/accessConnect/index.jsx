@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router';
 import _ from 'lodash';
 // import {VirtualRoute} from '../';
 import VirtualRoute from '../VirtualRoute';
 
-export const defaultScreenNegativeRenderResult = (<Redirect to="/" />);
+export const defaultScreenNegativeRenderResultGenerator = () => (<Redirect to="/dashboard/downloads/" />);
 export const defaultNonScreenNegativeRenderResult = null;
 
 const decorator = function decorator(Target, negativeRenderResult) {
@@ -29,13 +29,13 @@ const decorator = function decorator(Target, negativeRenderResult) {
 
       if (this.relatedVirtualRoute.isScreen) {
         return _.isUndefined(negativeRenderResult) ?
-            defaultScreenNegativeRenderResult :
+          defaultScreenNegativeRenderResultGenerator() :
             negativeRenderResult;
       }
 
       return _.isUndefined(negativeRenderResult) ?
-          defaultNonScreenNegativeRenderResult :
-          negativeRenderResult;
+        defaultNonScreenNegativeRenderResult :
+        negativeRenderResult;
     }
   }
 
@@ -48,12 +48,14 @@ const decorator = function decorator(Target, negativeRenderResult) {
 };
 
 export default function accessConnect(input) {
-  // eslint-disable-next-line no-prototype-builtins
-  if (Component.isPrototypeOf(input)) {
-    return decorator(input);
-  }
+  return decorator(input);
 
-  return function accessConnectWithNegative(Target) {
-    return decorator(Target, input);
-  };
+  // eslint-disable-next-line no-prototype-builtins
+  // if (Component.isPrototypeOf(input)) {
+  //   return decorator(input);
+  // }
+  //
+  // return function accessConnectWithNegative(Target) {
+  //   return decorator(Target, input);
+  // };
 }

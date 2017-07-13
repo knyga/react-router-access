@@ -1,4 +1,6 @@
+import React from 'react';
 import VirtualRoute from '../modules/VirtualRoute';
+import CollectionVirtualRoute from '../modules/CollectionVirtualRoute';
 
 export default function virtualRootBuilder() {
   // / -> /settings (no access) -> /settings/page/:id
@@ -6,7 +8,7 @@ export default function virtualRootBuilder() {
 
   const companyViewPageUsersList = new VirtualRoute({
     path: '/users',
-    hasAccess: function() {
+    hasAccess: function () {
       return false;
     },
   });
@@ -15,19 +17,19 @@ export default function virtualRootBuilder() {
     path: '/groups',
   });
 
-  const companyViewPage = new VirtualRoute({
+  const companyViewPage = new CollectionVirtualRoute({
     children: [companyViewPageUsersList, companyViewPageGroupsList],
     path: '/:id',
-    isScreen: true,
+    component: (<div>Screen</div>),
   });
 
-  const companyView = new VirtualRoute({
+  const companyView = new CollectionVirtualRoute({
     isAbstract: true,
     children: [companyViewPage],
     path: '/view',
   });
 
-  const companyModule = new VirtualRoute({
+  const companyModule = new CollectionVirtualRoute({
     children: [companyView],
     isAbstract: true,
     isAbsolutePath: true,
@@ -36,27 +38,28 @@ export default function virtualRootBuilder() {
 
   const settingsPage = new VirtualRoute({
     path: '/page/:id',
-    isScreen: true,
+    component: (<div>Screen</div>),
   });
 
-  const settings = new VirtualRoute({
+  const settings = new CollectionVirtualRoute({
     children: [settingsPage],
     isAbstract: true,
-    hasAccess: function() {
+    hasAccess: function () {
       return false;
     },
     isAbsolutePath: true,
     path: '/settings',
   });
 
-  const root = new VirtualRoute({
+  const root = new CollectionVirtualRoute({
     children: [settings, companyModule],
     isAbstract: true,
     isAbsolutePath: true,
     path: '/',
+    isExact: true,
   });
 
-  VirtualRoute.root = root;
+  VirtualRoute.setRoot(root);
 
   return root;
 }

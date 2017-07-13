@@ -1,37 +1,72 @@
+import React from 'react';
+import { Helmet } from 'react-helmet';
 import { matchPath } from 'react-router';
+import _ from 'lodash';
+import generateRedirectChildComponent from '../RedirectChildComponent';
+import navigationActionGenerator from '../navigationActionGenerator';
 
+// TODO: add interface
 export default class VirtualRoute {
+  static _store = null;
+  static _root = null;
+  // TODO make selection interface more clean
+  static getStore = function () {
+    return VirtualRoute._store;
+  };
+  static setStore = function (store) {
+    this._store = store;
+  };
+  static getRoot = function () {
+    return VirtualRoute._root;
+  };
+  static setRoot = function (root) {
+    this._root = root;
+  };
+  static findRoute = function findRoute(path) {
+    if (!VirtualRoute.getRoot()) {
+      return null;
+    }
+
+    return VirtualRoute.getRoot().findRoute(path);
+  };
+
   constructor({
-                children,
-                parent,
-                component,
-                path,
-                isExact,
-                isStrict,
-                isAbsolutePath,
-                isAbstract,
-                isScreen,
-                hasAccess,
-                data,
+    parent,
+    component,
+    path,
+    redirectTo,
+    isExact,
+    isStrict,
+    isAbsolutePath,
+    isActive,
+    hasAccess,
+    data,
   } = {}) {
-    this._parent = parent || null;
-    this._component = component || null;
     this._isExact = isExact || false;
     this._isStrict = isStrict || true;
-    // TODO redundant, if we have a component, rafactor
-    this._isAbstract = isAbstract || false;
+    this._isActive = _.isUndefined(isActive) ? true : isActive;
     this._isAbsolutePath = isAbsolutePath || false;
-    // TODO could be removed and replaced with first nodes
-      // from the root with component (non abstract)
-    this._isScreen = isScreen || false;
+    this._isScreen = !!component;
+
+    this._parent = parent || null;
     this._path = path;
-    this._children = [];
     this._hasAccess = hasAccess || (() => true);
     this._data = data || {};
 
-    if (children) {
-      children.forEach(child => this.addChild(child));
-    }
+    this._redirectTo = redirectTo;
+    this._component = component;
+  }
+
+  get NavigationActionConstructor() {
+    return this._NavigationActionConstructor;
+  }
+
+  set NavigationActionConstructor(NavigationActionConstructor) {
+    this._NavigationActionConstructor = NavigationActionConstructor;
+  }
+
+  get navigationAction() {
+    return this.generateConcreteNavigationAction();
   }
 
   get data() {
@@ -47,6 +82,14 @@ export default class VirtualRoute {
   }
 
   get component() {
+    if (this.redirectTo) {
+      if (_.isString(this.redirectTo)) {
+        return generateRedirectChildComponent(this.redirectTo);
+      }
+
+      return generateRedirectChildComponent(this.redirectTo.path);
+    }
+
     return this._component;
   }
 
@@ -58,14 +101,18 @@ export default class VirtualRoute {
     return this._isStrict;
   }
 
+  get redirectTo() {
+    return this._redirectTo;
+  }
+
   get path() {
     return this.isAbsolutePath ?
       this._path :
       [this.parent ? this.parent.path : '', this._path].join('');
   }
 
-  get isAbstract() {
-    return this._isAbstract;
+  get isActive() {
+    return this._isActive;
   }
 
   get isAbsolutePath() {
@@ -76,21 +123,37 @@ export default class VirtualRoute {
     return this._isScreen;
   }
 
-  get children() {
-    return this._children;
+  // TODO not clear.. could be confused with generateNavigationAction
+  generateConcreteNavigationAction(data = {}) {
+    return new this.NavigationActionConstructor(data);
+  }
+
+  // TODO remove generator, just use constructor..
+  generateNavigationAction(data = {}) {
+    this.NavigationActionConstructor = navigationActionGenerator({
+      ...data,
+      virtualRoute: this,
+    });
+
+    return this.NavigationActionConstructor;
   }
 
   hasAccess() {
+    const store = VirtualRoute.getStore();
+    const state = store ? store.getState() : null;
+
     return [
       this.parent ? this.parent.hasAccess() : true,
-      this._hasAccess.apply(this),
+      this._hasAccess.apply(this, [state]),
     ].reduce((pv, cv) => pv && cv, true);
   }
 
-  addChild(child) {
-    // eslint-disable-next-line no-param-reassign
-    child.parent = this;
-    this._children.push(child);
+  generateChildrenRoutesData() {
+    if (!this.isActive) {
+      return [];
+    }
+
+    return [this.generateRouteData()];
   }
 
   generatePathOptions() {
@@ -109,56 +172,56 @@ export default class VirtualRoute {
     };
   }
 
+  // looks quite similar to generatePathOptions
   generateRouteData() {
     return {
       path: this.path,
-      component: this.component,
       exact: this.isExact,
       strict: this.isStrict,
+      render: () => {
+        if (this.data.headerTitle) {
+          return (
+            <div>
+              <Helmet>
+                <title>{this.data.headerTitle}</title>
+              </Helmet>
+              <this.component />
+            </div>
+          );
+        }
+
+        return <this.component />;
+      },
     };
   }
 
-  // TODO add tests
-  generateChildrenRoutesData() {
-    return this._children.reduce(
-      (pv, cv) => pv.concat(
-        cv.isAbstract ?
-          cv.generateChildrenRoutesData() :
-          [cv.generateRouteData()],
-      ),
-      [],
-    );
-  }
-
-  findRoute(path) {
+  extractParams(pathname) {
     const pathOptions = this.generatePathOptions();
 
-    if (!pathOptions && !this.children) {
+    if (!pathOptions) {
       return null;
     }
 
-    const match = matchPath(path, pathOptions);
+    const match = matchPath(pathname, pathOptions);
 
-    // TODO use partial match for faster depth recursion
-    if (pathOptions && match !== null && match.isExact) {
-      return this;
+    if (match !== null) {
+      return match.params;
     }
 
-    if (!this.children) {
-      return null;
-    }
-
-    return this.children.reduce((pv, cv) => pv || cv.findRoute(path), null);
-  }
-}
-
-// TODO add static methods
-VirtualRoute.store = null;
-VirtualRoute.root = null;
-VirtualRoute.findRoute = function findRoute(path) {
-  if (!VirtualRoute.root) {
     return null;
   }
 
-  return VirtualRoute.root.findRoute(path);
-};
+  findRoute(pathname) {
+    const params = this.extractParams(pathname);
+
+    if (params !== null) {
+      return this;
+    }
+
+    return null;
+  }
+
+  findClosestAvailableChild() {
+    return this;
+  }
+}
