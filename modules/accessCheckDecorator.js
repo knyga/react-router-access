@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-const defaultNegativeRender = () => null;
+export const defaultNegativeRender = () => null;
 const accessClassCheckDecorator = (Target, decorationFunction, negativeRender) => {
   class DecoratedComponent extends Component {
     render() {

@@ -60,7 +60,6 @@ export default class CollectionVirtualRoute extends VirtualRoute {
     this._children.push(child);
   }
 
-  // TODO add tests
   generateChildrenRoutesData() {
     return this.children
       .reduce((pv, cv) => pv.concat(cv.generateChildrenRoutesData()), [])

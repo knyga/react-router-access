@@ -43,7 +43,7 @@ export default class VirtualRoute {
     data,
   } = {}) {
     this._isExact = isExact || false;
-    this._isStrict = isStrict || true;
+    this._isStrict = _.isUndefined(isStrict) ? true : isStrict;
     this._isActive = _.isUndefined(isActive) ? true : isActive;
     this._isAbsolutePath = isAbsolutePath || false;
     this._isScreen = !!component;

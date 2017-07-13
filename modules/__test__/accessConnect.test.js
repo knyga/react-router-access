@@ -47,7 +47,22 @@ test('renders with access', (t) => {
   t.is(wrapper.equals(content), true);
 });
 
-test('does not render without an access and has AA negative render result for screen', (t) => {
+test('does not render non existing routes', (t) => {
+  const content = (<div>Hello screen</div>);
+
+  @accessConnect
+  @withRouterExtended('/users/1')
+  class SomeScreen extends Component {
+    render() {
+      return content;
+    }
+  }
+
+  const wrapper = shallow(<SomeScreen />);
+  t.is(wrapper.equals(defaultNonScreenNegativeRenderResult), true);
+});
+
+test('does not render without an access and has default negative render result for screen', (t) => {
   const content = (<div>Hello screen</div>);
 
   @accessConnect
