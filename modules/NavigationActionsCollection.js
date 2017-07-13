@@ -1,4 +1,4 @@
-import NavigationAction from '../NavigationAction';
+import NavigationAction from './NavigationAction';
 
 export default class NavigationActionsCollection extends NavigationAction {
   get collection() {

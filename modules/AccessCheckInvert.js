@@ -1,4 +1,4 @@
-import AccessCheck from '../AccessCheck';
+import AccessCheck from './AccessCheck';
 
 // TODO tests
 export default class AccessCheckInvert extends AccessCheck {

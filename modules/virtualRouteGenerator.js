@@ -1,4 +1,4 @@
-import VirtualRoute from '../VirtualRoute';
+import VirtualRoute from './VirtualRoute';
 
 // TODO add test
 export default function virtualRouteGenerator(...args) {

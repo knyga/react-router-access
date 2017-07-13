@@ -1,6 +1,6 @@
 import test from 'ava';
-import NavigationActionsCollection from '../';
-import NavigationAction from '../../NavigationAction';
+import NavigationActionsCollection from '../NavigationActionsCollection';
+import NavigationAction from '../NavigationAction';
 
 test.beforeEach((t) => {
   class CustomNavigationAction extends NavigationAction {

@@ -1,6 +1,6 @@
 import test from 'ava';
-import { virtualRootBuilder } from '../../../__mocks__';
-import VirtualRoute from '../';
+import { virtualRootBuilder } from '../../__mocks__';
+import VirtualRoute from '../VirtualRoute';
 
 test.beforeEach((t) => {
   t.context.virtualRoot = virtualRootBuilder();

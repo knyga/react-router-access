@@ -1,9 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-// import {checkReactChildrenRecursive, checkPathAccess, VirtualRoute} from '../';
-import checkReactChildrenRecursive from '../checkReactChildrenRecursive';
-import checkPathAccess from '../checkPathAccess';
-import VirtualRoute from '../VirtualRoute';
+import checkReactChildrenRecursive from './checkReactChildrenRecursive';
+import checkPathAccess from './checkPathAccess';
+import VirtualRoute from './VirtualRoute';
 
 // TODO tests
 export default class AccessCheck extends Component {

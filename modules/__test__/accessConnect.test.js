@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import test from 'ava';
-import accessConnect, { defaultScreenNegativeRenderResultGenerator, defaultNonScreenNegativeRenderResult } from '../';
-import { virtualRootBuilder } from '../../../__mocks__';
+import accessConnect, { defaultScreenNegativeRenderResultGenerator, defaultNonScreenNegativeRenderResult } from '../accessConnect';
+import { virtualRootBuilder } from '../../__mocks__';
 
 const withRouterExtended = pathname => (TargetComponent) => {
   const location = {

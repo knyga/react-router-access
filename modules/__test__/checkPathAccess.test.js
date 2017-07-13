@@ -1,6 +1,6 @@
 import test from 'ava';
-import checkPathAccess from '../';
-import { virtualRootBuilder } from '../../../__mocks__';
+import checkPathAccess from '../checkPathAccess';
+import { virtualRootBuilder } from '../../__mocks__';
 
 test.beforeEach((t) => {
   t.context.virtualRouteRoot = virtualRootBuilder();

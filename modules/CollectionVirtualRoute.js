@@ -1,8 +1,8 @@
 import { matchPath } from 'react-router';
 import _ from 'lodash';
-import VirtualRoute from '../VirtualRoute';
-import NavigationActionsCollection from '../NavigationActionsCollection';
-import navigationActionGenerator from '../navigationActionGenerator';
+import VirtualRoute from './VirtualRoute';
+import NavigationActionsCollection from './NavigationActionsCollection';
+import navigationActionGenerator from './navigationActionGenerator';
 
 // TODO add interface
 export default class CollectionVirtualRoute extends VirtualRoute {

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import NavigationAction from '../NavigationAction';
+import NavigationAction from './NavigationAction';
 
 // TODO add test
 export default function navigationActionGenerator({ virtualRoute, label, data, path, hasAccess }, Extender = NavigationAction) {

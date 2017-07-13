@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router';
 import _ from 'lodash';
-// import {VirtualRoute} from '../';
-import VirtualRoute from '../VirtualRoute';
+import VirtualRoute from './VirtualRoute';
 
 export const defaultScreenNegativeRenderResultGenerator = () => (<Redirect to="/dashboard/downloads/" />);
 export const defaultNonScreenNegativeRenderResult = null;
