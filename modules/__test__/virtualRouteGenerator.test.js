@@ -1,7 +1,7 @@
 import test from 'ava';
 import virtualRouteGenerator from '../virtualRouteGenerator';
 
-test.only('data initialized with empty object be default', (t) => {
+test('data initialized with empty object be default', (t) => {
   const data = {
     isExact: true,
     isStrict: false,
