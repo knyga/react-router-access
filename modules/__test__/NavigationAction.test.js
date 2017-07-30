@@ -1,6 +1,6 @@
 import test from 'ava';
-import NavigationAction from '../';
-import VirtualRoute from '../../VirtualRoute';
+import NavigationAction from '../NavigationAction';
+import VirtualRoute from '../VirtualRoute';
 
 test.beforeEach((t) => {
   const props = {

@@ -1,13 +1,12 @@
 import { Children } from 'react';
 
 // TODO find better name
-// TODO tests
 export default function recursiveCheck(element, checkFn) {
   if (!element) {
     return true;
   }
 
-  if (!checkFn(element)) {
+  if (!checkFn || !checkFn(element)) {
     return false;
   }
 

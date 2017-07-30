@@ -1,11 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-// import {checkReactChildrenRecursive, checkPathAccess, VirtualRoute} from '../';
-import checkReactChildrenRecursive from '../checkReactChildrenRecursive';
-import checkPathAccess from '../checkPathAccess';
-import VirtualRoute from '../VirtualRoute';
+import checkReactChildrenRecursive from './checkReactChildrenRecursive';
+import checkPathAccess from './checkPathAccess';
+import VirtualRoute from './VirtualRoute';
 
-// TODO tests
 export default class AccessCheck extends Component {
   static propTypes = {
     children: PropTypes.node,
@@ -28,7 +26,7 @@ export default class AccessCheck extends Component {
           return true;
         }
 
-        return checkPathAccess(element.props.to, VirtualRoute.root);
+        return checkPathAccess(element.props.to, VirtualRoute.getRoot());
       },
     );
   }

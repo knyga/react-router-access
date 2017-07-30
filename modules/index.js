@@ -6,5 +6,6 @@ export checkPathAccess from './checkPathAccess';
 export checkReactChildrenRecursive from './checkReactChildrenRecursive';
 export NavigationAction from './NavigationAction';
 export VirtualRoute from './VirtualRoute';
+export CollectionVirtualRoute from './CollectionVirtualRoute';
 export virtualRouteGenerator from './virtualRouteGenerator';
 export NavigationActionsCollection from './NavigationActionsCollection';

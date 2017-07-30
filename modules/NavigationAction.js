@@ -5,12 +5,13 @@ export default class NavigationAction {
     this.props = props;
   }
 
+  // TODO static?
   get virtualRoute() {
-    throw new Error(`You have to implement getter virtualRoute in the ${this.name}`);
+    throw new Error(`You have to implement getter virtualRoute in the ${this.constructor.name}`);
   }
 
   get label() {
-    throw new Error(`You have to implement getter label in the ${this.name}`);
+    throw new Error(`You have to implement getter label in the ${this.virtualRoute.path}`);
   }
 
   get props() {
