@@ -1,6 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { matchPath } from 'react-router';
+import createHistory from 'history/createBrowserHistory';
+import { compile as compilePath } from 'path-to-regexp';
 import _ from 'lodash';
 import generateRedirectChildComponent from './RedirectChildComponent';
 import navigationActionGenerator from './navigationActionGenerator';
@@ -66,7 +68,11 @@ export default class VirtualRoute {
   }
 
   get navigationAction() {
-    return this.generateConcreteNavigationAction();
+    if (!this._navigationAction) {
+      this._navigationAction = this.generateConcreteNavigationAction();
+    }
+
+    return this._navigationAction;
   }
 
   get data() {
@@ -83,11 +89,20 @@ export default class VirtualRoute {
 
   get component() {
     if (this.redirectTo) {
-      if (_.isString(this.redirectTo)) {
-        return generateRedirectChildComponent(this.redirectTo);
+      let redirectTo;
+      const redirectPath = _.isString(this.redirectTo) ? this.redirectTo : this.redirectTo.path;
+      const history = createHistory();
+      const location = history.location;
+
+      if (_.isUndefined(location)) {
+        redirectTo = redirectPath;
+      } else {
+        const params = this.extractParams(location.pathname);
+        const toPath = compilePath(redirectPath);
+        redirectTo = toPath(params);
       }
 
-      return generateRedirectChildComponent(this.redirectTo.path);
+      return generateRedirectChildComponent(redirectTo);
     }
 
     return this._component;

@@ -13,6 +13,7 @@ const withRouterExtended = pathname => (TargetComponent) => {
 
   class ExtendedComponent extends TargetComponent {
     static propTypes = {
+      // eslint-disable-next-line react/no-unused-prop-types
       location: PropTypes.object,
     };
     static defaultProps = {
